@@ -6,12 +6,15 @@ package com.example.service.player;
 
 import com.example.model.Player;
 import com.example.repository.PlayerRepository;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
+import org.hibernate.service.spi.InjectService;
 
 /**
  *
  * @author prabin
  */
+@RequestScoped
 public class PlayerServiceImpl implements PlayerService {
 
     @Inject

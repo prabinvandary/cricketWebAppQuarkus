@@ -28,18 +28,18 @@ public class PlayerResource extends BaseResource {
     @POST
     public ApiResponse savePlayer(Player player) throws JsonParsingException {
         playerRepository.persist(player);
-        return success(200, "Player saved successully",null );
+        return success(200, "Player saved successfully",null );
     }
 
     @GET
     public ApiResponse getAllPlayer() {
-        return success(200, "Player saved successully", playerRepository.findAll());
+        return success(200, "Player saved successfully", playerRepository.findAll());
     }
 
     @GET
     @Path("/{id}")
     public ApiResponse getPlayerById(@PathParam("id") Long id) {
-        return success(200, "Player saved successully", playerRepository.findById(id));
+        return success(200, "Player saved successfully", playerRepository.findById(id));
     }
 
     @PUT
