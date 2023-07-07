@@ -5,7 +5,9 @@
 package com.example.api.baseController;
 
 
-public class BaseResource {
+import java.io.Serializable;
+
+public class BaseResource implements Serializable {
 
     private Integer status;
 

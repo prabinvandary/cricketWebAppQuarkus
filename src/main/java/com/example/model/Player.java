@@ -18,7 +18,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "player")
-public class Player extends GenericAbstractClass implements GenericInterface {
+public class Player extends GenericAbstractClass{
 
     @Column(length = 50, nullable = false)
     private String name;
@@ -95,6 +95,4 @@ public class Player extends GenericAbstractClass implements GenericInterface {
         }
         return this.playerRole == other.playerRole;
     }
-
-
 }

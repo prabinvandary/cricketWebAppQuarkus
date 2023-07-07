@@ -14,6 +14,4 @@ public interface GenericInterface {
 
     void setId(Long id);
 
-    String getString();
-
     }

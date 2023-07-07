@@ -8,40 +8,64 @@ import com.example.model.Player;
 import com.example.repository.PlayerRepository;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
-import org.hibernate.service.spi.InjectService;
+import jakarta.transaction.Transactional;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
- *
  * @author prabin
  */
 @RequestScoped
-public class PlayerServiceImpl implements PlayerService {
+public class PlayerServiceImpl implements PlayerService, Serializable {
 
     @Inject
-    private PlayerRepository playerRepository;
+    PlayerRepository playerRepository;
 
     @Override
     public Player upadtePlayer(Long id, Player updatePlayer) {
         Player player = playerRepository.findById(id);
         if (player == null) {
-            throw new RuntimeException("Player doesnot exist by given id.");
+            throw new RuntimeException("Player does not exist by given id.");
         }
-        player.setAddress(updatePlayer.getAddress() != null ? updatePlayer.getAddress() : player.getAddress());
-        player.setName(updatePlayer.getName() != null ? updatePlayer.getName() : player.getName());
-        player.setPlayerRole(updatePlayer.getPlayerRole() != null ? updatePlayer.getPlayerRole() : player.getPlayerRole());
+        setPlayer(updatePlayer, player);
         playerRepository.persist(player);
         return player;
     }
 
     @Override
+    @Transactional
     public Boolean deletePlayer(Long id) {
-        Player player = playerRepository.findById(id);
-        if (player == null) {
-            throw new RuntimeException("Player doesnot exist by given id.");
-        }
-        
-        playerRepository.deleteById(id);
+        Player player = playerRepository.findByIdOptional(id).orElseThrow(()->new RuntimeException("Player does not exist by given Id"));
+        playerRepository.deleteById(player.getId());
         return true;
+    }
+
+    @Override
+    public List<Player> getAllPlayer() {
+        return playerRepository.listAll();
+    }
+
+    @Override
+    @Transactional
+    public Player savePlayer(Player playerToSave) {
+        Player player = new Player();
+        if (playerToSave.getId() != null)
+            player = playerRepository.findByIdOptional(playerToSave.getId()).orElse(player);
+        setPlayer(playerToSave, player);
+        playerRepository.persistAndFlush(player);
+        return player;
+    }
+
+    private void setPlayer(Player playerToSave, Player player) {
+        player.setAddress(playerToSave.getAddress() != null ? playerToSave.getAddress() : player.getAddress());
+        player.setName(playerToSave.getName() != null ? playerToSave.getName() : player.getName());
+        player.setPlayerRole(playerToSave.getPlayerRole() != null ? playerToSave.getPlayerRole() : player.getPlayerRole());
+    }
+
+    @Override
+    public Player   getPlayerById(Long id) {
+        return playerRepository.findByIdOptional(id).orElseThrow(() -> new RuntimeException("Player does not exist by given id " + id));
     }
 
 }

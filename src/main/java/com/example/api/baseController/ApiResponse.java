@@ -4,15 +4,15 @@
  */
 package com.example.api.baseController;
 
-public class ApiResponse {
+import java.io.Serializable;
+
+public class ApiResponse implements Serializable {
 
     private Integer status;
 
     private String message;
 
     private Object data;
-
-    private Long id;
 
     public Integer getStatus() {
         return status;
@@ -39,13 +39,5 @@ public class ApiResponse {
         this.data = data;
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-    
-    
 }

@@ -7,6 +7,8 @@ package com.example.service.player;
 
 import com.example.model.Player;
 
+import java.util.List;
+
 /**
  *
  * @author prabin
@@ -15,5 +17,10 @@ public interface PlayerService {
     Player upadtePlayer(Long id, Player player);
     
     Boolean deletePlayer(Long id);
-    
+
+    List<Player> getAllPlayer();
+
+    Player savePlayer(Player player);
+
+    Player getPlayerById(Long id);
 }
