@@ -7,6 +7,7 @@ import com.example.model.Player;
 import com.example.repository.PlayerRepository;
 import com.example.service.player.PlayerService;
 import com.example.util.GlobalApiResponse;
+import jakarta.annotation.security.PermitAll;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -31,10 +32,8 @@ public class PlayerResource extends BaseController {
 
     @POST
     @Path("/player")
-    public RestResponse<GlobalApiResponse> savePlayerR(@HeaderParam("name") String name, @HeaderParam("lastName") String lastName, Player player) {
-        if (!(name.contentEquals("Prabin")&&lastName.contentEquals("Bhandari")))
-            throw new AppException("Header Param not matched");
-        return RestResponse.ok(successResponse("Player Saved successfully", playerService.savePlayer(player)));
+    public RestResponse<GlobalApiResponse> savePlayerR(Player player) {
+          return RestResponse.ok(successResponse("Player Saved successfully", playerService.savePlayer(player)));
     }
 
 
