@@ -21,7 +21,7 @@ public class RequestFilter implements ContainerRequestFilter {
         String lastName = containerRequestContext.getHeaderString("lastName");
         if (containerRequestContext.getUriInfo().getAbsolutePath().toString().equals("http://localhost:5050/webapp/player"))
             return;
-        if (name==null||lastName==null)
+        if (name == null || lastName == null)
             throw new AppException("Please provide require header param");
         if (!(name.contentEquals("Prabin") && lastName.contentEquals("Bhandari")))
             throw new AppException("Header Param not matched");
