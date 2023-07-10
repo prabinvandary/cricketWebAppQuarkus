@@ -1,5 +1,6 @@
 package com.example.api;
 
+import com.example.PrintApiPath;
 import com.example.controller.BaseController;
 import com.example.enumvalues.PlayerRole;
 import com.example.exception.AppException;
@@ -32,12 +33,14 @@ public class PlayerResource extends BaseController {
 
     @POST
     @Path("/player")
+    @PrintApiPath
     public RestResponse<GlobalApiResponse> savePlayerR(Player player) {
           return RestResponse.ok(successResponse("Player Saved successfully", playerService.savePlayer(player)));
     }
 
 
     @GET
+    @PrintApiPath
     public Response getAllPlayer() {
         return Response.ok(playerService.getAllPlayer()).status(200).build();
     }

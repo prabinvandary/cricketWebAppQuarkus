@@ -19,6 +19,7 @@ public class ExampleResource {
     PlayerRepository playerRepository;
     @GET
     @Produces(MediaType.TEXT_PLAIN)
+    @PrintApiPath
     public String hello() {
         return "Hello from RESTEasy Reactive";
     }
