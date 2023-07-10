@@ -4,6 +4,7 @@
  */
 package com.example.service.playerTeamTournament;
 
+import com.example.exception.AppException;
 import com.example.model.Player;
 import com.example.model.PlayerTeamTournament;
 import com.example.model.TeamTournament;
@@ -40,11 +41,11 @@ public class PlayerTeamTournamentServiceImpl implements PlayerTeamTournamentServ
             }
             TeamTournament teamTournament = teamTournamentRepository.findById(requestPojo.getTeamTournamentId());
             if (teamTournament == null) {
-                throw new RuntimeException("Team tournament not found by given Id");
+                throw new AppException("Team tournament not found by given Id");
             }
             Player player = playerRepository.findById(requestPojo.getPlayerId());
             if (player == null) {
-                throw new RuntimeException("Player not found by given id.");
+                throw new AppException("Player not found by given id.");
             }
             playerTeamTournament.setPlayer(player);
             playerTeamTournament.setTeamTournament(teamTournament);

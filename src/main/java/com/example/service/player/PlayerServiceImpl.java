@@ -4,6 +4,7 @@
  */
 package com.example.service.player;
 
+import com.example.exception.AppException;
 import com.example.model.Player;
 import com.example.repository.PlayerRepository;
 import jakarta.enterprise.context.RequestScoped;
@@ -26,7 +27,7 @@ public class PlayerServiceImpl implements PlayerService, Serializable {
     public Player upadtePlayer(Long id, Player updatePlayer) {
         Player player = playerRepository.findById(id);
         if (player == null) {
-            throw new RuntimeException("Player does not exist by given id.");
+            throw new AppException("Player does not exist by given id.");
         }
         setPlayer(updatePlayer, player);
         playerRepository.persist(player);
@@ -36,7 +37,7 @@ public class PlayerServiceImpl implements PlayerService, Serializable {
     @Override
     @Transactional
     public Boolean deletePlayer(Long id) {
-        Player player = playerRepository.findByIdOptional(id).orElseThrow(()->new RuntimeException("Player does not exist by given Id"));
+        Player player = playerRepository.findByIdOptional(id).orElseThrow(()->new AppException("Player does not exist by given Id"));
         playerRepository.deleteById(player.getId());
         return true;
     }
@@ -65,7 +66,7 @@ public class PlayerServiceImpl implements PlayerService, Serializable {
 
     @Override
     public Player   getPlayerById(Long id) {
-        return playerRepository.findByIdOptional(id).orElseThrow(() -> new RuntimeException("Player does not exist by given id " + id));
+        return playerRepository.findByIdOptional(id).orElseThrow(() -> new AppException("Player does not exist by given id " + id));
     }
 
 }

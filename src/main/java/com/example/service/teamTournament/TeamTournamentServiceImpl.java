@@ -5,6 +5,7 @@
 package com.example.service.teamTournament;
 
 
+import com.example.exception.AppException;
 import com.example.model.Team;
 import com.example.model.TeamTournament;
 import com.example.model.Tournament;
@@ -44,17 +45,17 @@ public class TeamTournamentServiceImpl implements TeamTournamentService{
             }
 
             if (tournament == null) {
-                throw new RuntimeException("Tournament not found by given id");
+                throw new AppException("Tournament not found by given id");
             }
             if (team == null) {
-                throw new RuntimeException("Team not found by given id");
+                throw new AppException("Team not found by given id");
             }
             teamTournament.setTeam(team);
             teamTournament.setTournament(tournament);
           teamTournamentRepository.persist(teamTournament);
           return teamTournament;
-        } catch (RuntimeException e) {
-            throw new RuntimeException("Couldnot save data " + e.getLocalizedMessage());
+        } catch (Exception e) {
+            throw new AppException("Couldnot save data " + e.getLocalizedMessage());
         }
         
     }
