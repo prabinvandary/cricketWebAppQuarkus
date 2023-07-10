@@ -2,6 +2,7 @@ package com.example.api;
 
 import com.example.controller.BaseController;
 import com.example.enumvalues.PlayerRole;
+import com.example.exception.AppException;
 import com.example.model.Player;
 import com.example.repository.PlayerRepository;
 import com.example.service.player.PlayerService;
@@ -10,7 +11,6 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.jboss.resteasy.reactive.RestHeader;
 import org.jboss.resteasy.reactive.RestResponse;
 
 /**
@@ -22,8 +22,6 @@ import org.jboss.resteasy.reactive.RestResponse;
 public class PlayerResource extends BaseController {
 
     @Inject
-    PlayerRepository playerRepository;
-    @Inject
     PlayerService playerService;
 
     @POST
@@ -34,8 +32,8 @@ public class PlayerResource extends BaseController {
     @POST
     @Path("/player")
     public RestResponse<GlobalApiResponse> savePlayerR(@HeaderParam("name") String name, @HeaderParam("lastName") String lastName, Player player) {
-        if (!name.equals("Prabin") && !lastName.equals("Bhandari"))
-            throw new RuntimeException("Header Param not matched");
+        if (!(name.contentEquals("Prabin")&&lastName.contentEquals("Bhandari")))
+            throw new AppException("Header Param not matched");
         return RestResponse.ok(successResponse("Player Saved successfully", playerService.savePlayer(player)));
     }
 

@@ -5,6 +5,7 @@
 package com.example.service.matchSummary;
 
 
+import com.example.exception.AppException;
 import com.example.model.CricketMatch;
 import com.example.model.MatchSummary;
 import com.example.model.Player;
@@ -34,17 +35,17 @@ public class MatchSummaryServiceImpl implements MatchSummaryService {
         MatchSummary matchSummary = new MatchSummary();
         Player bowler = playerRepository.findById(requestPojo.getBowlerId());
         if (bowler == null) {
-            throw new RuntimeException("Bowler not found by given id.");
+            throw new AppException("Bowler not found by given id.");
         }
 
         Player batsmen = playerRepository.findById(requestPojo.getBatsMenId());
         if (batsmen == null) {
-            throw new RuntimeException("Batsmen not found by given id.");
+            throw new AppException("Batsmen not found by given id.");
         }
         
         CricketMatch cricketMatch= cricketMatchRepository.findById(requestPojo.getMatchId());
         if (cricketMatch==null) {
-            throw new RuntimeException("Cricket match doesnot exist by given id.");
+            throw new AppException("Cricket match doesnot exist by given id.");
         }
         if (requestPojo.getId() != null) {
             matchSummary = matchSummaryRepository.findById(requestPojo.getId());

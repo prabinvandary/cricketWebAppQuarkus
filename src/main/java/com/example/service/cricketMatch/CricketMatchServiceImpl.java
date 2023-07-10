@@ -5,6 +5,7 @@
 package com.example.service.cricketMatch;
 
 
+import com.example.exception.AppException;
 import com.example.model.CricketMatch;
 import com.example.model.Team;
 import com.example.model.TeamMatchScore;
@@ -54,13 +55,13 @@ public class CricketMatchServiceImpl implements CricketMatchService {
         cricketMatch.setMatchDate(requestPojo.getMatchDate());
         cricketMatch.setVenue(requestPojo.getMatchVenue());
         if (tournament == null) {
-            throw new RuntimeException("Tournament not found by given id");
+            throw new AppException("Tournament not found by given id");
         }
         if (firstTeam == null) {
-            throw new RuntimeException("Team not found by given id " + requestPojo.getTeamMatchDetailRequestPojo().getFirstTeamId());
+            throw new AppException("Team not found by given id " + requestPojo.getTeamMatchDetailRequestPojo().getFirstTeamId());
         }
         if (secondTeam == null) {
-            throw new RuntimeException("Team not found by given id " + requestPojo.getTeamMatchDetailRequestPojo().getFirstTeamId());
+            throw new AppException("Team not found by given id " + requestPojo.getTeamMatchDetailRequestPojo().getFirstTeamId());
         }
         cricketMatchRepository.persist(cricketMatch);
         saveTeamMatchScore(cricketMatch, firstTeam, requestPojo);
@@ -89,7 +90,7 @@ public class CricketMatchServiceImpl implements CricketMatchService {
     public TeamMatchScore updateTeamRun(UpdateRunDetailRequestPojo requestPojo) {
         TeamMatchScore teamMatchScore = teamMatchScoreRepository.findById(requestPojo.getTeamMatchScoreId());
         if (teamMatchScore == null) {
-            throw new RuntimeException("Team match details not found by given id");
+            throw new AppException("Team match details not found by given id");
         }
 
         teamMatchScore.setScore(requestPojo.getScore());
@@ -100,7 +101,7 @@ public class CricketMatchServiceImpl implements CricketMatchService {
     public TeamMatchScore updateTeamWinner(UpdateWinnerDetailRequestPojo requestPojo) {
         TeamMatchScore teamMatchScore = teamMatchScoreRepository.findById(requestPojo.getTeamMatchScoreId());
         if (teamMatchScore == null) {
-            throw new RuntimeException("Team match details not found by given id");
+            throw new AppException("Team match details not found by given id");
         }
         teamMatchScore.setIsWinner(requestPojo.getIsWinner());
         teamMatchScoreRepository.persist(teamMatchScore);
@@ -110,7 +111,7 @@ public class CricketMatchServiceImpl implements CricketMatchService {
     public TeamMatchScore addTeamRun(UpdateRunDetailRequestPojo requestPojo) {
         TeamMatchScore teamMatchScore = teamMatchScoreRepository.findById(requestPojo.getTeamMatchScoreId());
         if (teamMatchScore == null) {
-            throw new RuntimeException("Team match details not found by given id");
+            throw new AppException("Team match details not found by given id");
         }
 
         teamMatchScore.setScore(teamMatchScore.getScore()+requestPojo.getScore());
