@@ -4,7 +4,6 @@ import com.example.PrintApiPath;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerRequestFilter;
 import jakarta.ws.rs.ext.Provider;
-import org.jboss.logging.Logger;
 
 @PrintApiPath
 @Provider
