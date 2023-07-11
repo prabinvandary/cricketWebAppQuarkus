@@ -65,7 +65,7 @@ public class PlayerServiceImpl implements PlayerService, Serializable {
     }
 
     @Override
-    public Player   getPlayerById(Long id) {
+    public Player  getPlayerById(Long id) {
         return playerRepository.findByIdOptional(id).orElseThrow(() -> new AppException("Player does not exist by given id " + id));
     }
 
