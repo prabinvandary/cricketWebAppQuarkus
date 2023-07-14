@@ -1,7 +1,5 @@
 package com.example;
 
-import jakarta.ws.rs.container.ContainerRequestContext;
-
 import java.lang.annotation.*;
 
 @Target({ElementType.TYPE,ElementType.METHOD})

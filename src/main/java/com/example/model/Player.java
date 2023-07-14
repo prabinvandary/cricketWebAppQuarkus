@@ -7,7 +7,6 @@ package com.example.model;
 
 import com.example.enumvalues.PlayerRole;
 import com.example.model.generic.GenericAbstractClass;
-import com.example.model.generic.GenericInterface;
 import jakarta.persistence.*;
 
 import java.util.Objects;

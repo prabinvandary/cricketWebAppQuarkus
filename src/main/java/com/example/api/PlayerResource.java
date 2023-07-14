@@ -17,7 +17,6 @@ import org.jboss.resteasy.reactive.RestResponse;
  * @author prabin
  */
 @Path("/player")
-@Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class PlayerResource extends BaseController {
 
@@ -25,8 +24,9 @@ public class PlayerResource extends BaseController {
     PlayerService playerService;
 
     @POST
-    @RolesAllowed({"User", "Admin"})
+//    @RolesAllowed({"User", "Admin"})
     @PrintApiPath
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response savePlayer(Player player) {
         return Response.ok(playerService.savePlayer(player)).status(200).build();
     }
@@ -34,6 +34,7 @@ public class PlayerResource extends BaseController {
     @POST
     @Path("/player")
     @PrintApiPath
+    @Consumes(MediaType.APPLICATION_JSON)
     public RestResponse<GlobalApiResponse> savePlayerR(Player player) {
           return RestResponse.ok(successResponse("Player Saved successfully", playerService.savePlayer(player)));
     }
@@ -41,7 +42,7 @@ public class PlayerResource extends BaseController {
 
     @GET
     @PrintApiPath
-    @RolesAllowed({"User", "Admin"})
+//    @RolesAllowed({"User", "Admin"})
     public Response getAllPlayer() {
         return Response.ok(playerService.getAllPlayer()).status(200).build();
     }
@@ -66,13 +67,14 @@ public class PlayerResource extends BaseController {
     @Path("/{id}")
     @RolesAllowed({"User", "Admin"})
     @PrintApiPath
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response updatePlayerById(@PathParam("id") Long id, Player player) {
         return Response.ok(playerService.upadtePlayer(id, player)).status(200).build();
     }
 
     @DELETE
     @Path("/{id}")
-    @RolesAllowed({"User", "Admin"})
+//    @RolesAllowed({"User", "Admin"})
     @PrintApiPath
     public Response deletePlayerById(@PathParam("id") Long id) {
         return Response.ok(playerService.deletePlayer(id)).status(200).build();

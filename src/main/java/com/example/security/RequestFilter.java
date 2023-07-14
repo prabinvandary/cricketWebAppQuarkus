@@ -7,6 +7,7 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerRequestFilter;
 import jakarta.ws.rs.container.PreMatching;
+import jakarta.ws.rs.core.MultivaluedMap;
 import jakarta.ws.rs.ext.Provider;
 import lombok.SneakyThrows;
 
@@ -23,6 +24,8 @@ public class RequestFilter implements ContainerRequestFilter {
     @SneakyThrows
     @Override
     public void filter(ContainerRequestContext containerRequestContext) {
+        MultivaluedMap<String, String> headers = containerRequestContext.getHeaders();
+        headers.add("Access-Control-Allow-Origin", "http://localhost:5173");
         if (containerRequestContext.getUriInfo().getAbsolutePath().toString().equals("http://localhost:5050/webapp/token")) {
             String userName = containerRequestContext.getHeaderString("userName");
             String password = containerRequestContext.getHeaderString("password");
@@ -32,9 +35,9 @@ public class RequestFilter implements ContainerRequestFilter {
                 throw new AppException("Username or password does not matched");
             return;
         }
-
+        if (containerRequestContext.getUriInfo().getAbsolutePath().toString().equals("http://localhost:5050/webapp/player"))
+            return;
         decryptToken(containerRequestContext);
-
     }
 
     private void decryptToken(ContainerRequestContext containerRequestContext) throws ParseException {
